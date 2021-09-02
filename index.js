@@ -1,6 +1,7 @@
 //依赖收集发生在getter阶段，setter部分是notify
 function defineReactive(obj,key,val){
     /*
+        defineProperty
         obj: 目标对象
         prop: 需要操作的目标对象的属性名
         descriptor: 描述符
