@@ -1,5 +1,5 @@
 # qc-vue-reactive
-vue响应式系统及其依赖收集原理
+vue响应式原理和发布订阅的设计模式
 
 # run
 ```
