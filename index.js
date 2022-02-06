@@ -1,16 +1,17 @@
 //依赖收集发生在getter阶段，setter部分是notify
-function defineReactive(obj,key,val){
-    /*
-        defineProperty
-        obj: 目标对象
-        prop: 需要操作的目标对象的属性名
-        descriptor: 描述符
+/*
+    defineProperty
+    obj: 目标对象
+    prop: 需要操作的目标对象的属性名
+    descriptor: 描述符
 
-        return value 传入对象
-    */
+    return value 传入对象
+*/
+function defineReactive(obj,key,val){
     const dep = new Dep();
     Object.defineProperty(obj,key,{
-        enumerable:true,//可枚举
+        //可枚举, 为true 时，该属性才会出现在对象的枚举属性中。可枚举的属性可以通过Object.keys()方法返回一个可枚举属性的数组
+        enumerable:true,
         configurable:true,//可更改
         //依赖收集
         get:function reactiveGetter(){
@@ -90,7 +91,8 @@ class Vue{
         observer(this._data);
         /* 新建一个Watcher观察者对象，这时候Dep.target会指向这个Watcher对象 */
         new Watcher();
-        /* 在这里模拟render的过程，为了触发test属性的get函数 */
+        /* 在这里模拟render的过程，为了触发test属性的get函数,一旦触发就会Dep就会把上边的Watcher拉进群 */
+        //初始render
         console.log('render~', this._data.test);
     }
 }
@@ -101,6 +103,7 @@ let o = new Vue({
         test:"I am test."
     }
 })
+//触发更新
 o._data.test = "hello,world";
 
 
